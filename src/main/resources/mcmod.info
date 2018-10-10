@@ -1,0 +1,18 @@
+[
+{
+  "modid": "bedrockbreaker",
+  "name": "Bedrock Breaker",
+  "description": "Mod made for MineCrak that adds a bedrock breaking pickaxe.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["CursedFlames"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "useDependencyInformation": true,
+  "requiredMods": ["cursedlib@[0.0.5,)"],
+  "dependencies": ["cursedlib"]
+}
+]

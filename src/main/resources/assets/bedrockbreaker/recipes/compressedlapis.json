@@ -1,0 +1,17 @@
+{
+	"result": {
+		"item": "bedrockbreaker:compressedlapis",
+		"count": 1
+	},
+	"pattern": [
+		"lll",
+		"lll",
+		"lll"
+	],
+	"type": "minecraft:crafting_shaped",
+	"key": {
+		"l": {
+			"item": "minecraft:lapis_block"
+		}
+	}
+}

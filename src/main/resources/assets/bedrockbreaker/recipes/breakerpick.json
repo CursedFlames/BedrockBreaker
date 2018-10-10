@@ -1,0 +1,23 @@
+{
+	"result": {
+		"item": "bedrockbreaker:breakerpick",
+		"count": 1
+	},
+	"pattern": [
+		"bSb",
+		" s ",
+		" s "
+	],
+	"type": "minecraft:crafting_shaped",
+	"key": {
+		"b": {
+			"item": "bedrockbreaker:breakerblade"
+		},
+		"S": {
+			"item": "minecraft:nether_star"
+		},
+		"s": {
+			"item": "minecraft:stick"
+		}
+	}
+}

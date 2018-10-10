@@ -1,0 +1,12 @@
+{
+	"result": {
+		"item": "minecraft:lapis_block",
+		"count": 9
+	},
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "bedrockbreaker:compressedlapis"
+		}
+	]
+}

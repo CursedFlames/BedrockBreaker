@@ -16,7 +16,7 @@ apply plugin: 'java'
 
 version = "1.12.2-0.0.1"
 group = "cursedflames.bedrockbreaker" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "Bedrock Breaker"
+archivesBaseName = "BedrockBreaker"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {

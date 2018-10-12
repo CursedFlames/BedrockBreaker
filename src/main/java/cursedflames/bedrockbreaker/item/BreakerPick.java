@@ -95,6 +95,9 @@ public class BreakerPick extends ItemPickaxe {
 			return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
 		}
 		charge += chargePerTick.getDouble(0.1125); // TODO testing
+		if (charge>maxCharge.getInt(9)) {
+			charge = maxCharge.getInt(9);
+		}
 		if (charge>stored) {
 			IInventory inv = player.inventory;
 			for (int i = 0; i<inv.getSizeInventory(); i++) {

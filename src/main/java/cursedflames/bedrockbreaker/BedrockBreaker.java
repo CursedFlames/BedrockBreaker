@@ -8,10 +8,16 @@ import cursedflames.bedrockbreaker.item.ModItems;
 import cursedflames.bedrockbreaker.proxy.ISideProxy;
 import cursedflames.lib.RegistryHelper;
 import cursedflames.lib.config.Config;
+import cursedflames.lib.config.Config.EnumPropSide;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Property;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -21,6 +27,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 @Mod(modid = BedrockBreaker.MODID, name = BedrockBreaker.MODNAME, version = "", useMetadata = true)
 @Mod.EventBusSubscriber
@@ -34,6 +41,7 @@ public class BedrockBreaker {
 	public static final RegistryHelper registryHelper = new RegistryHelper(MODID);
 
 	public static Config config;
+	public static Property enablePick;
 
 	public static Logger logger;
 
@@ -45,6 +53,8 @@ public class BedrockBreaker {
 		logger = event.getModLog();
 		config = new Config(MODID, "1", logger);
 		config.preInit(event);
+		enablePick = config.addPropBoolean("enablePick", "General",
+				"Is the pickaxe recipe enabled?", true, EnumPropSide.SERVER);
 
 		MinecraftForge.EVENT_BUS.register(BreakerPick.class);
 	}
@@ -76,5 +86,33 @@ public class BedrockBreaker {
 	@Mod.EventHandler
 	public static void postInit(FMLPostInitializationEvent event) {
 		config.postInit(event);
+	}
+
+	@SubscribeEvent
+	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+		if (!enablePick.getBoolean(true))
+			return;
+		//@formatter:off
+		event.getRegistry().register(
+				new ShapedOreRecipe(new ResourceLocation(MODID, "breaker_pick"),
+				ModItems.breakerPick, new String[] {
+				"bSb",
+				" s ",
+				" s "},
+				'b', ModItems.breakerBlade,
+				'S', Items.NETHER_STAR,
+				's', Items.STICK)
+				.setRegistryName(new ResourceLocation(MODID, "breaker_pick")));
+		event.getRegistry().register(
+				new ShapedOreRecipe(new ResourceLocation(MODID, "breaker_blade"),
+				ModItems.breakerBlade, new String[] {
+				"edl",
+				"llc",
+				"edl"},
+				'e', Items.EMERALD,
+				'd', Items.DIAMOND,
+				'l', Item.getItemFromBlock(Blocks.LAPIS_BLOCK),
+				'c', Item.getItemFromBlock(ModBlocks.compressedLapis))
+				.setRegistryName(new ResourceLocation(MODID, "breaker_blade")));
 	}
 }

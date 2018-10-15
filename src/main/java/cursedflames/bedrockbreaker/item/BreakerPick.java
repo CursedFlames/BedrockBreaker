@@ -33,10 +33,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BreakerPick extends ItemPickaxe {
-	public static final ToolMaterial material = EnumHelper.addToolMaterial("breakerpick", 0, 12, 1,
-			0, 0);
+	public static ToolMaterial material;
 	public static Property maxCharge;
 	public static Property chargePerTick;
+	public static Property maxDurability;
 
 	public BreakerPick() {
 		super(material);
@@ -51,6 +51,7 @@ public class BreakerPick extends ItemPickaxe {
 				"Number of lapis pieces charged per usage of the breaker pick. This isn't every tick, might be based on the swing speed?",
 				0.1125, EnumPropSide.SYNCED);
 		chargePerTick = BedrockBreaker.config.getSyncedProperty("breakerPickChargePerTick");
+		material = EnumHelper.addToolMaterial("breakerpick", 0, 12, 1, 0, 0);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -67,9 +68,11 @@ public class BreakerPick extends ItemPickaxe {
 			stack.setTagCompound(tag);
 		}
 		double charge = tag.getDouble("lapisCharge");
+		int stored = tag.getInteger("lapisStored");
 		int max = maxCharge.getInt(9);
 		tooltip.add(BedrockBreaker.proxy.translateWithArgs(base+".charge",
 				String.format("%.2f", charge)+"/"+max));
+		tooltip.add(BedrockBreaker.proxy.translateWithArgs(base+".stored", String.valueOf(stored)));
 		if (!shift) {
 			tooltip.add(BedrockBreaker.proxy.translate(base+".shift"));
 		} else {

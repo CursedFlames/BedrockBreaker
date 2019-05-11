@@ -10,8 +10,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockUnbreakium extends GenericBlock {
-	public BlockUnbreakium() {
-		super(BedrockBreaker.MODID, "unbreakium", CreativeTabs.BUILDING_BLOCKS, Material.ROCK,
+	public BlockUnbreakium(String unlocalizedName) {
+		super(BedrockBreaker.MODID, unlocalizedName, CreativeTabs.BUILDING_BLOCKS, Material.ROCK,
 				Integer.MAX_VALUE, Integer.MAX_VALUE);
 		setBlockUnbreakable();
 	}

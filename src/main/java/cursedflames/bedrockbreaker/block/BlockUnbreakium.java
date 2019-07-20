@@ -1,7 +1,6 @@
 package cursedflames.bedrockbreaker.block;
 
 import cursedflames.bedrockbreaker.BedrockBreaker;
-import cursedflames.lib.block.GenericBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;

@@ -1,7 +1,6 @@
 package cursedflames.bedrockbreaker.block;
 
 import cursedflames.bedrockbreaker.BedrockBreaker;
-import cursedflames.lib.block.GenericBlock;
 
 public class ModBlocks {
 	public static GenericBlock compressedLapis = null;

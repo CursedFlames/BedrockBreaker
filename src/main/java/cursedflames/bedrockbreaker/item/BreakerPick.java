@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import cursedflames.bedrockbreaker.BedrockBreaker;
 import cursedflames.bedrockbreaker.block.ModBlocks;
-import cursedflames.lib.config.Config.EnumPropSide;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.util.ITooltipFlag;
@@ -43,14 +42,12 @@ public class BreakerPick extends ItemPickaxe {
 		setUnlocalizedName(BedrockBreaker.MODID+".breakerPick");
 		setRegistryName(new ResourceLocation(BedrockBreaker.MODID, "breakerpick"));
 		setCreativeTab(CreativeTabs.TOOLS);
-		BedrockBreaker.config.addPropInt("breakerPickMaxCharge", "General",
-				"Number of lapis pieces that can be stored in the breaker pick. This is also the number of pieces needed to break one block of bedrock.",
-				9, EnumPropSide.SYNCED);
-		maxCharge = BedrockBreaker.config.getSyncedProperty("breakerPickMaxCharge");
-		BedrockBreaker.config.addPropDouble("breakerPickChargePerTick", "General",
-				"Number of lapis pieces charged per usage of the breaker pick. This isn't every tick, might be based on the swing speed?",
-				0.1125, EnumPropSide.SYNCED);
-		chargePerTick = BedrockBreaker.config.getSyncedProperty("breakerPickChargePerTick");
+		maxCharge = BedrockBreaker.config.get("breakerPickMaxCharge", "General", 9,
+				"Number of lapis pieces that can be stored in the breaker pick. This is also the number of pieces needed to break one block of bedrock."
+				);
+		chargePerTick = BedrockBreaker.config.get("breakerPickChargePerTick", "General", 0.1125,
+				"Number of lapis pieces charged per usage of the breaker pick. This isn't every tick, might be based on the swing speed?"
+				);
 		material = EnumHelper.addToolMaterial("breakerpick", 0, 12, 1, 0, 0);
 	}
 

@@ -1,14 +1,13 @@
 package cursedflames.bedrockbreaker;
 
+import java.io.File;
+
 import org.apache.logging.log4j.Logger;
 
 import cursedflames.bedrockbreaker.block.ModBlocks;
 import cursedflames.bedrockbreaker.item.BreakerPick;
 import cursedflames.bedrockbreaker.item.ModItems;
 import cursedflames.bedrockbreaker.proxy.ISideProxy;
-import cursedflames.lib.RegistryHelper;
-import cursedflames.lib.config.Config;
-import cursedflames.lib.config.Config.EnumPropSide;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -17,6 +16,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -40,7 +40,7 @@ public class BedrockBreaker {
 
 	public static final RegistryHelper registryHelper = new RegistryHelper(MODID);
 
-	public static Config config;
+	public static Configuration config;
 	public static Property enablePick;
 
 	public static Logger logger;
@@ -51,12 +51,12 @@ public class BedrockBreaker {
 	@Mod.EventHandler
 	public static void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
-		config = new Config(MODID, "1", logger);
-		config.preInit(event);
-		enablePick = config.addPropBoolean("enablePick", "General",
-				"Is the pickaxe recipe enabled?", true, EnumPropSide.SERVER);
 
 		MinecraftForge.EVENT_BUS.register(BreakerPick.class);
+		File directory = event.getModConfigurationDirectory();
+		File configFile = new File(directory.getPath(), BedrockBreaker.MODID+".cfg");
+		config = new Configuration(configFile, "2");
+		enablePick = config.get("General", "enablePick", true, "Is the pickaxe recipe enabled?");
 	}
 
 	@SubscribeEvent
@@ -85,7 +85,9 @@ public class BedrockBreaker {
 
 	@Mod.EventHandler
 	public static void postInit(FMLPostInitializationEvent event) {
-		config.postInit(event);
+		if (config.hasChanged()) {
+			config.save();
+		}
 	}
 
 	@SubscribeEvent
